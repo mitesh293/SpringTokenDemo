@@ -1,5 +1,6 @@
 package com.token.service;
 
+import com.token.repository.UserJbdcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,8 +16,10 @@ public class RedisScheduler {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    UserJbdcRepository userJbdcRepository;
 
     public void executeTask(){
-        taskExecutor.execute(new MyRunnable(jdbcTemplate));
+        taskExecutor.execute(new MyRunnable(jdbcTemplate,userJbdcRepository));
     }
 }
